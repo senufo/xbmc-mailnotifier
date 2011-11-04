@@ -1,2 +1,7 @@
 0.0.2 
 - First functional version
+0.0.3
+- Correction bug POP SSL
+0.0.4
+- Notification Popup for new email
+- Configuration for window message position 

@@ -1,0 +1,17 @@
+mail-notification is a service that allows to see the arrival of new mail on the HOME page of xbmc
+ 
+INSTALLATION:
+          Add the ZIP file from the XBMC interface system
+          Then configure the various mail servers, up to three
+          TAB Server
+           My Server: The name that will appear in the HOME screen
+           User: login to the mail server
+           Password: your password, be careful it will be clear from the file setting.xml
+           Server Address: normally in the form pop.monfai.fr
+           Port: 110 for POP3, 995 for POP3S (SSL)
+           SSL: yes or no
+           Type:  for the future support IMAP
+          General Tab
+           Time: Time in seconds between two mail server connections 
+ 
+After you  need to restart XBMC for the service to be taken into account.

@@ -1,0 +1,18 @@
+mail-notifier est un service qui permets de voir l'arrivée de nouveaux mails sur la page HOME de xbmc
+
+INSTALLATION:
+	Ajouter le fichier ZIP par l'interface système de XBMC
+	Ensuite configurer les différents serveurs de mail, trois au maximum
+	ONGLET Serveur
+ 	 Mon du serveur : Nom qui apparaitra dans la fenetre HOME
+	 Utilisateur : login pour le serveur mail
+	 Mot de passe : votre mot de passe, attention il sera en clair dans le fichier setting.xml
+	 Adresse de serveur : normalement sous la forme pop.monfai.fr
+	 Port : 110 pour POP3 995 pour POP3S (SSL)
+	 SSL : utilise le mode SSL yes ou no
+	 Type : Ne sert à rien pour le moment en prévison du support IMAP
+	ONGLET Général
+	 Temps : Temps, en seconde, entre deux relevés de mail
+
+Une fois configuré il est nécessaire de redémarrer XBMC pour que le service soit pris en compte.
+

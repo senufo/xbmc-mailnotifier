@@ -11,7 +11,7 @@
 
   <!-- Script Settings -->
 
-  <string id="30100">Server >Name</string>
+    <string id="30100">Server Name</string>
     <string id="30101">Mail Username</string>
     <string id="30102">Mail Password</string>
     <string id="30103">Server address</string>
@@ -19,6 +19,8 @@
     <string id="30105">SSL</string>
     <string id="30106">Type</string>
     <string id="30107">Time</string>
-
+    <string id="30114">Popup New mail</string>
+    <string id="30115">Popup Connexion Error</string>
+    <string id="30116">Folder</string>
 </strings>
 

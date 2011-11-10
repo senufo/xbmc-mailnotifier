@@ -5,3 +5,16 @@
 0.0.4
 - Notification Popup for new email
 - Configuration for window message position 
+0.0.5
+- Add mail icon in Home screen 
+0.0.7
+- Add popup for new message
+0.0.8
+- Display messages with file skin Home.xml with ControlLabel and getID
+0.0.9
+- Use bool and enum in settings.xml
+0.1
+- Add IMAP support (to be tested)
+- Correct bug enumMail = 0
+- Correct bug table Msg
+- Update translate files

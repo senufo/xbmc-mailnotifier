@@ -1,6 +1,8 @@
-mail-notifier est un service qui permets de voir l'arrivée de nouveaux mails sur la page HOME de xbmc
+mail-notifier est un service qui permet de voir l'arrivée de nouveaux mails sur la page HOME de xbmc
 
 INSTALLATION:
+	Dans le fichier Home_Confluence.xml se trouve la position et le background où seront affichés les messages
+	Copier le contenu du fichier Home_Confluence.xml  à la fin du fichier Home.xml
 	Ajouter le fichier ZIP par l'interface système de XBMC
 	Ensuite configurer les différents serveurs de mail, trois au maximum
 	ONGLET Serveur
@@ -10,9 +12,12 @@ INSTALLATION:
 	 Adresse de serveur : normalement sous la forme pop.monfai.fr
 	 Port : 110 pour POP3 995 pour POP3S (SSL)
 	 SSL : utilise le mode SSL yes ou no
-	 Type : Ne sert à rien pour le moment en prévison du support IMAP
+	 Type : POP3 / IMAP
+	 Dossier : Nom du dossier IMAP à relever
 	ONGLET Général
 	 Temps : Temps, en seconde, entre deux relevés de mail
+	 Popup Nouveau mail : Affiche une fenetre popup lors de l'&arrivée d'un nouveau mail
+	 Popup Erreur de connection : Affiche un popup en d'erreur de connection
 
-Une fois configuré il est nécessaire de redémarrer XBMC pour que le service soit pris en compte.
+Une fois configuré il est nécessaire déactiver et d'activer le service pour que les modifcations soient prise en compte.
 

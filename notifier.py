@@ -1,6 +1,6 @@
 import xbmc, xbmcgui
 import xbmcaddon
-import poplib
+import poplib, imaplib
 import time
 #Traitement des fichiers xml
 import xml.dom.minidom
@@ -21,20 +21,46 @@ __resource__   = xbmc.translatePath( os.path.join( __cwd__, 'resources', 'lib' )
 sys.path.append (__resource__)
 
 
-print "dirHome : %s " % __cwd__
+#print "dirHome : %s " % __cwd__
 #ID de la fenetre HOME
 WINDOW_HOME = 10000 
 #print "==============NOTIFIER==============="
-NbMsg = [0,0,0]
-#POPHOST = "192.168.10.254"
+NbMsg = [0,0,0,0]
+numEmails = 0 
+#ID du screen HOME
+homeWin = xbmcgui.Window(WINDOW_HOME)
+currentWindowId = xbmcgui.getCurrentWindowId()
+windowChange = False
+#On stocke le temps courant
+temps = time.clock()
+#On prend l'intervalle entre deux releve de boite
+intervalle = int(Addon.getSetting( 'time' ))
+#On stocke le temps precedent, pour la 1er fois
+#on enleve intervalle pour un affichage des le debut
+old_temps = temps - intervalle
+#Total des nx messages
+#NxMsgTot = 0
+#msg = ''
+	
 #Verifie que xbmc tourne
 while (not xbmc.abortRequested):
-	  #On vide le message
-          msg = ''
-	  NxMsgTot = 0
-	  MsgTot = False
-	  #On recupere les parametres des trois serveurs
-	  for i in [1,2,3]:
+	  #Attente avant de relever les mails
+	  #On ne releve les mails qui si on a attendu
+	  #un temps >  a l'intervalle
+          #print "temps_avt = %f, old_temps = %f" % (temps, old_temps)
+          temps =  time.clock() 
+	  if (temps > (old_temps + intervalle)):
+            #print "temps_sup = %f, old_temps = %f" % (temps, old_temps)
+	    old_temps = temps
+	    #print "time %f " % temps
+            #On vide le message
+            msg = ''
+	    #Total des nx messages
+	    NxMsgTot = 0
+	    #Pas de nx message
+	    MsgTot = False
+	    #On recupere les parametres des trois serveurs
+	    for i in [1,2,3]:
 		id = 'user' + str(i)
 	   	USER = Addon.getSetting( id )
 		id = 'name' + str(i)
@@ -46,68 +72,67 @@ while (not xbmc.abortRequested):
 		id = 'port' + str(i)
 		PORT =  Addon.getSetting( id )
 		id = 'ssl' + str(i)
-		SSL = Addon.getSetting( id )
-#		print "SERVER = %s, PORT = %s, USER = %s, password = %s, SSL = %s" % (SERVER,PORT,USER, PASSWORD, SSL)
+		SSL = Addon.getSetting( id ) == "true"
+		id = 'type' + str(i)
+		TYPE = Addon.getSetting( id )
+		#print "SERVER = %s, PORT = %s, USER = %s, password = %s, SSL = %s, TYPE = %s" % (SERVER,PORT,USER, PASSWORD, SSL,TYPE)
                 #Teste si USER existe 
 		if (USER != ''):
-		   try :
-			SSL.lower()
-			if ('no' in SSL): 
-				mail = poplib.POP3(str(SERVER),int(PORT))
-			else: 
-				mail = poplib.POP3_SSL(str(SERVER),int(PORT))
-		        mail.user(str(USER))
-		        mail.pass_(str(PASSWORD))
-			
-	        	numEmails = mail.stat()[0]
-			if numEmails > 0: MsgTot = True
-			#On regarde si un nouveau mail est arrive
-			if NbMsg[i] == 0: NbMsg[i] = numEmails
-			NxMsg = numEmails - NbMsg[i]
-			if NxMsg > 0 : 
-				NbMsg[i] = NbMsg[i] + NxMsg
-				NxMsgTot = NxMsgTot + NxMsg
-			else:
-				NbMsg[i] = numEmails
-		        #print "numEmails = %d " % numEmails
-			locstr = Addon.getLocalizedString(id=610)
-			if numEmails != 0:
-		                msg = msg + "%s : %d %s" % (NOM,numEmails, locstr) + "\n"
-			numEmails = 0
-	           except:
-			locstr = Addon.getLocalizedString(id=613)
-                        xbmc.executebuiltin("XBMC.Notification(%s :, %s,30)" % (locstr,SERVER))
-		        print "Erreur de connection : %s" % SERVER
+		   try:
+			#Partie POP3
+			if  '0' in TYPE:  #'POP' 
+			  if SSL:
+			       mail = poplib.POP3_SSL(str(SERVER),int(PORT))
+			  else:  #'POP3'
+			       mail = poplib.POP3(str(SERVER),int(PORT))
+                          mail.user(str(USER))
+		          mail.pass_(str(PASSWORD))
+	        	  numEmails = mail.stat()[0]
+                        #Partie IMAP
+                        if '1' in TYPE:
+			  if SSL:
+			       imap = imaplib.IMAP4_SSL(SERVER, int(PORT))
+	                  else:
+		               imap = imaplib.IMAP4(SERVER, int(PORT))
+	  		  imap.login(USER, PASSWORD)
+                       	  id = 'folder' + str(i)
+		          FOLDER = Addon.getSetting( id )
+		          imap.select(FOLDER)
+	                #  numEmails = 1 
+	                  numEmails = len(imap.search(None, 'UnSeen')[1][0].split()) 
+		          #print "IMAP numEmails = %d " % numEmails
+                   except:
+		   	locstr = Addon.getLocalizedString(id=613) #Erreur de connection
+			if Addon.getSetting( 'erreur' ) == "true":
+                        	xbmc.executebuiltin("XBMC.Notification(%s :, %s,30)" % (locstr,SERVER))
+		        #print "Erreur de connection : %s, erreur = %s" % (SERVER, mail)
 		        msg = msg + "%s : %s\n" % (NOM,locstr)
-	  homeWin = xbmcgui.Window(WINDOW_HOME)
-          x = int(Addon.getSetting( 'x' ))
-          y = int(Addon.getSetting( 'y' ))
-          height = int(Addon.getSetting( 'height' ))
-          width = int(Addon.getSetting( 'width' ))
-	  print "POS =%d, %d, %d, %d " % (x,y,height,width)
-	  #On n'affiche que si il y a des messages
-	  if MsgTot:
-	          #Affiche l'icone de mail
-		  ImgBox = xbmcgui.ControlImage(x-75, y, 75, 75, __cwd__ + '/home-myemail.png') #aspectRatio=1, , colorDiffuse='0xC0FF0000'
-		  font_msg = Addon.getSetting( 'font' )
-		  couleur_msg = Addon.getSetting( 'color' )
-		  MsgBox = xbmcgui.ControlTextBox(x, y, width, height, font=font_msg, textColor=couleur_msg)
-		  print "Message = %s " % msg
-		  homeWin.addControl(ImgBox)
-		  homeWin.addControl(MsgBox)
 
-		  message =  "%s " % msg
-	 	  MsgBox.setText(message)
-	  if NxMsgTot > 0:
-		locstr = Addon.getLocalizedString(id=611)
-		xbmc.executebuiltin("XBMC.Notification( ,%d %s,60)" % (NxMsgTot,locstr))
+		   if numEmails > 0: MsgTot = True #Il y a des messages
+		   #On regarde si un nouveau mail est arrive
+	           if NbMsg[i] == 0: NbMsg[i] = numEmails
+		   NxMsg = numEmails - NbMsg[i]
+		   if NxMsg > 0 : 
+			NbMsg[i] = NbMsg[i] + NxMsg
+			NxMsgTot = NxMsgTot + NxMsg
+	           else:
+			NbMsg[i] = numEmails
+		   #print "numEmails = %d " % numEmails
+		   locstr = Addon.getLocalizedString(id=610) #messages(s)
+		   if numEmails != 0:
+		          #msg = msg + "%s : %d %s" % (NOM,numEmails, locstr) + "\n"
+		          msg = msg + "%s : %d " % (NOM,numEmails) + "\n"
+		          numEmails = 0
+                   if NxMsgTot > 0:
+	       	      locstr = Addon.getLocalizedString(id=611) #Nouveau(x) message(s)
+                      #Affiche un popup a l'arrivee d'un nx msg
+		      if Addon.getSetting( 'popup' ) == "true":
+		            xbmc.executebuiltin("XBMC.Notification( ,%d %s,60)" % (NxMsgTot,locstr))
 
-	  #Attente avant de relever les mails
-	  intervalle = Addon.getSetting( 'time' )
-	  time.sleep(int(intervalle))
-	  #Efface la textbox si elle existe
-	  try:
-		homeWin.removeControl(MsgBox)
-	  except:
-                print "Le controle n'existe pas"
-        
+            #On n'affiche que si il y a des messages
+	    #Verifie si chgt de Home SCREEN
+            if MsgTot:
+                if (xbmcgui.getCurrentWindowId() == WINDOW_HOME):
+		 #666 = id du control Label dans le Home.xml
+                 MsgBox = homeWin.getControl(666)
+                 MsgBox.setLabel(msg)

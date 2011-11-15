@@ -38,44 +38,19 @@ intervalle = int(Addon.getSetting( 'time' ))
 #On stocke le temps precedent, pour la 1er fois
 #on enleve intervalle pour un affichage des le debut
 old_temps = temps - intervalle
-#Total des nx messages
-#NxMsgTot = 0
-#msg = ''
-	
-#Verifie que xbmc tourne
-while (not xbmc.abortRequested):
-	  #Attente avant de relever les mails
-	  #On ne releve les mails qui si on a attendu
-	  #un temps >  a l'intervalle
-          #print "temps_avt = %f, old_temps = %f" % (temps, old_temps)
-          temps =  time.clock() 
-	  if (temps > (old_temps + intervalle)):
-            #print "temps_sup = %f, old_temps = %f" % (temps, old_temps)
-	    old_temps = temps
-	    #print "time %f " % temps
-            #On vide le message
-            msg = ''
-	    #Total des nx messages
-	    NxMsgTot = 0
-	    #Pas de nx message
-	    MsgTot = False
-	    #On recupere les parametres des trois serveurs
-	    for i in [1,2,3]:
-		id = 'user' + str(i)
-	   	USER = Addon.getSetting( id )
-		id = 'name' + str(i)
-    		NOM =  Addon.getSetting( id )
-		id = 'server' + str(i)
-		SERVER = Addon.getSetting( id )
-		id = 'pass' + str(i)
-		PASSWORD =  Addon.getSetting( id )
-		id = 'port' + str(i)
-		PORT =  Addon.getSetting( id )
-		id = 'ssl' + str(i)
-		SSL = Addon.getSetting( id ) == "true"
-		id = 'type' + str(i)
-		TYPE = Addon.getSetting( id )
-		#print "SERVER = %s, PORT = %s, USER = %s, password = %s, SSL = %s, TYPE = %s" % (SERVER,PORT,USER, PASSWORD, SSL,TYPE)
+#Total des messages, nx messages, contenu de l'affichage
+NxMsgTot = 0
+msg = ''
+message = ''
+MsgTot = True
+#No du serveur
+NoServ = 1
+
+def Checkmail(USER,NOM,SERVER,PASSWORD,PORT,SSL,TYPE,MsgTot,NoServ):
+		msg = ''
+                NxMsgTot = 0
+                numEmails = 0 
+		i = NoServ
                 #Teste si USER existe 
 		if (USER != ''):
 		   try:
@@ -128,6 +103,56 @@ while (not xbmc.abortRequested):
                       #Affiche un popup a l'arrivee d'un nx msg
 		      if Addon.getSetting( 'popup' ) == "true":
 		            xbmc.executebuiltin("XBMC.Notification( ,%d %s,60)" % (NxMsgTot,locstr))
+	           return MsgTot,msg
+
+
+#Verifie que xbmc tourne
+while (not xbmc.abortRequested):
+	  #Attente avant de relever les mails
+	  #On ne releve les mails qui si on a attendu
+	  #un temps >  a l'intervalle
+          temps =  time.clock() 
+	  if (temps > (old_temps + intervalle)):
+            #print "temps_sup = %f, old_temps = %f" % (temps, old_temps)
+	    old_temps = temps
+	    #print "time %f " % temps
+            #On vide le message
+            msg = ''
+	    message = ''
+	    #Total des nx messages
+	    NxMsgTot = 0
+	    #Pas de nx message
+	    MsgTot = False
+	    #Quel type d'affichage : tout les serveurs a la fois ou l'un apres l'autre
+            ALT = Addon.getSetting( 'alt' ) == "true"
+	    #Si l'un apres l'autre
+	    if ALT:
+	     USER = Addon.getSetting( 'user' + str(NoServ) )
+    	     NOM =  Addon.getSetting( 'name' + str(NoServ))
+	     SERVER = Addon.getSetting( 'server' + str(NoServ))
+	     PASSWORD =  Addon.getSetting( 'pass' + str(NoServ))
+	     PORT =  Addon.getSetting( 'port' + str(NoServ))
+	     SSL = Addon.getSetting( 'ssl' + str(NoServ)) == "true"
+	     TYPE = Addon.getSetting( 'type' + str(NoServ))
+	     #print "=>SERVER = %s, PORT = %s, USER = %s, password = %s, SSL = %s, TYPE = %s" % (SERVER,PORT,USER, PASSWORD, SSL,TYPE)
+             (MsgTot, msg) = Checkmail(USER,NOM,SERVER,PASSWORD,PORT,SSL,TYPE, MsgTot,NoServ)
+	     message = message + msg
+     	     NoServ += 1  #On passe au serveur suivant
+	     if (NoServ > 3): NoServ =1 #Si dernier serveur on revient au premier
+	    else:  #Affichage de tout les serveurs a la fois
+	     #On recupere les parametres des trois serveurs
+	     for i in [1,2,3]:
+	   	USER = Addon.getSetting( 'user' + str(i) )
+    		NOM =  Addon.getSetting( 'name' + str(i) )
+		SERVER = Addon.getSetting( 'server' + str(i) )
+		PASSWORD =  Addon.getSetting( 'pass' + str(i) )
+		PORT =  Addon.getSetting( 'port' + str(i) )
+		SSL = Addon.getSetting( 'ssl' + str(i) ) == "true"
+		TYPE = Addon.getSetting( 'type' + str(i) )
+		#print "SERVER = %s, PORT = %s, USER = %s, password = %s, SSL = %s, TYPE = %s" % (SERVER,PORT,USER, PASSWORD, SSL,TYPE)
+		(MsgTot, msg) = Checkmail(USER,NOM,SERVER,PASSWORD,PORT,SSL,TYPE, MsgTot,i)
+		message = message + msg
+
 
             #On n'affiche que si il y a des messages
 	    #Verifie si chgt de Home SCREEN
@@ -135,4 +160,6 @@ while (not xbmc.abortRequested):
                 if (xbmcgui.getCurrentWindowId() == WINDOW_HOME):
 		 #666 = id du control Label dans le Home.xml
                  MsgBox = homeWin.getControl(666)
-                 MsgBox.setLabel(msg)
+                 MsgBox.setLabel(message)
+		 #On efface le contenu
+		 message = ''

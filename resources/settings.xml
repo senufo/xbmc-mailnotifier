@@ -34,6 +34,7 @@
 	    <setting id="time" type="text" label="30107" default="60" />
 	    <setting id="popup" type="bool" label="30114" default="True" />
 	    <setting id="erreur" type="bool" label="30115" default="True" />
+	    <setting id="alt" type="bool" label="30117" default="False" />
     </category>
 </settings>
 

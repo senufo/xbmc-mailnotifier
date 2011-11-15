@@ -18,5 +18,6 @@ INSTALLATION:
 	 Time: Time in seconds between two mail surveys
 	 New mail popup: Displays a popup window when the arrival of a new & mail
 	 Popup error connection: Displays a popup error in connection
+	 Alternative: Display servers one after the other
 
 Once configured it is necessary to deactivate and activate the service for the modifcations are taken into account.

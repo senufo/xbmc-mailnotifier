@@ -1,11 +1,10 @@
 mail-notification is a service that allows you to see the arrival of new mail on the HOME page of xbmc
 
 INSTALLATION:
-	In the file Home_Confluence.xml is the position and background which will be displayed messages
-	Copy the contents of Home_Confluence.xml at the end of the file Home.xml
 	Add the ZIP file from the XBMC interface system
 	Then configure the various mail servers, up to three
 	TAB Server
+	  Enable server : yes/no
 	  My Server: The name that will appear in the HOME
 	  User login to the mail server
 	  Password: your password, be careful it will be clear from the file setting.xml
@@ -13,11 +12,11 @@ INSTALLATION:
 	  Port: 110 to 995 for POP3 POP3 (SSL)
 	  SSL: SSL uses the yes or no
 	  Type: POP3 / IMAP
-	  Dossier: IMAP folder name
+	  FOLDER: IMAP folder name
 	General Tab
 	 Time: Time in seconds between two mail surveys
 	 New mail popup: Displays a popup window when the arrival of a new & mail
 	 Popup error connection: Displays a popup error in connection
-	 Alternative: Display servers one after the other
+	 Show update time: Display update time
 
 Once configured it is necessary to deactivate and activate the service for the modifcations are taken into account.

@@ -8,7 +8,7 @@
        <setting id="show_update" type="bool" label="30117" default="True" />
     </category>
     <category label="Serveur 1">
-       <setting id="enableserver1" type="bool" label="Enable Server" default="false" />
+       <setting id="enableserver1" type="bool" label="30118" default="false" />
        <setting id="name1" type="text"  label="30100" default="" enable="eq(-1,true)"/>
        <setting id="user1" type="text"  label="30101" default="" enable="eq(-2,true)"/>
        <setting id="pass1" type="text" option = "hidden" label="30102" default="" enable="eq(-3,true)"/>
@@ -19,7 +19,7 @@
        <setting id="folder1" type="text" label="30116"  default="INBOX" enable="eq(-8,true)"/>
     </category>
     <category label="Serveur 2">
-       <setting id="enableserver2" type="bool" label="Enable Server" default="false" />
+       <setting id="enableserver2" type="bool" label="30118" default="false" />
        <setting id="name2" type="text"  label="30100" default="" enable="eq(-1,true)"/>
        <setting id="user2" type="text"  label="30101" default="" enable="eq(-2,true)"/>
        <setting id="pass2" type="text" option = "hidden" label="30102" default="" enable="eq(-3,true)"/>
@@ -30,7 +30,7 @@
        <setting id="folder2" type="text" label="30116"  default="INBOX"/>
     </category>
     <category label="Serveur 3">
-       <setting id="enableserver3" type="bool" label="Enable Server" default="false" />
+       <setting id="enableserver3" type="bool" label="30118" default="false" />
        <setting id="name3" type="text"  label="30100" default="" enable="eq(-1,true)"/>
        <setting id="user3" type="text"  label="30101" default="" enable="eq(-2,true)"/>
        <setting id="pass3" type="text" option = "hidden" label="30102" default="" enable="eq(-3,true)"/>

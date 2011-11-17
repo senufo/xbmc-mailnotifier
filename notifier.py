@@ -21,16 +21,13 @@ __resource__   = xbmc.translatePath( os.path.join( __cwd__, 'resources', 'lib' )
 sys.path.append (__resource__)
 
 
-#print "dirHome : %s " % __cwd__
 #ID de la fenetre HOME
 WINDOW_HOME = 10000 
-#print "==============NOTIFIER==============="
 NbMsg = [0,0,0,0]
 numEmails = 0 
 #ID du screen HOME
 homeWin = xbmcgui.Window(WINDOW_HOME)
 currentWindowId = xbmcgui.getCurrentWindowId()
-windowChange = False
 #On stocke le temps courant
 temps = time.clock()
 #On prend l'intervalle entre deux releve de boite
@@ -47,10 +44,12 @@ MsgTot = True
 NoServ = 1
 
 def Checkmail(USER,NOM,SERVER,PASSWORD,PORT,SSL,TYPE,MsgTot,NoServ):
+		print "CHECKMAIL"
 		msg = ''
                 NxMsgTot = 0
                 numEmails = 0 
 		i = NoServ
+		print "Ligne 55"
                 #Teste si USER existe 
 		if (USER != ''):
 		   try:
@@ -134,8 +133,9 @@ while (not xbmc.abortRequested):
 	     PORT =  Addon.getSetting( 'port' + str(NoServ))
 	     SSL = Addon.getSetting( 'ssl' + str(NoServ)) == "true"
 	     TYPE = Addon.getSetting( 'type' + str(NoServ))
-	     #print "=>SERVER = %s, PORT = %s, USER = %s, password = %s, SSL = %s, TYPE = %s" % (SERVER,PORT,USER, PASSWORD, SSL,TYPE)
-             (MsgTot, msg) = Checkmail(USER,NOM,SERVER,PASSWORD,PORT,SSL,TYPE, MsgTot,NoServ)
+	     print "=>SERVER = %s, PORT = %s, USER = %s, password = %s, SSL = %s, TYPE = %s" % (SERVER,PORT,USER, PASSWORD, SSL,TYPE)
+             if (USER != ''):
+               (MsgTot, msg) = Checkmail(USER,NOM,SERVER,PASSWORD,PORT,SSL,TYPE, MsgTot,NoServ)
 	     message = message + msg
      	     NoServ += 1  #On passe au serveur suivant
 	     if (NoServ > 3): NoServ =1 #Si dernier serveur on revient au premier
@@ -150,7 +150,8 @@ while (not xbmc.abortRequested):
 		SSL = Addon.getSetting( 'ssl' + str(i) ) == "true"
 		TYPE = Addon.getSetting( 'type' + str(i) )
 		#print "SERVER = %s, PORT = %s, USER = %s, password = %s, SSL = %s, TYPE = %s" % (SERVER,PORT,USER, PASSWORD, SSL,TYPE)
-		(MsgTot, msg) = Checkmail(USER,NOM,SERVER,PASSWORD,PORT,SSL,TYPE, MsgTot,i)
+                if (USER != ''):
+		   (MsgTot, msg) = Checkmail(USER,NOM,SERVER,PASSWORD,PORT,SSL,TYPE, MsgTot,i)
 		message = message + msg
 
 

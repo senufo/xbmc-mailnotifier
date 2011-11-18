@@ -6,6 +6,12 @@
        <setting id="popup" type="bool" label="30114" default="True" />
        <setting id="erreur" type="bool" label="30115" default="True" />
        <setting id="show_update" type="bool" label="30117" default="True" />
+       <setting id="x" type="text"  label="x" default="50"/>
+       <setting id="y" type="text"  label="y" default="20"/>
+       <setting id="width" type="text"  label="30119" default="500"/>
+       <setting id="height" type="text"  label="30120" default="300"/>
+       <setting id="font" type="text"  label="30121" default="font13"/>
+       <setting id="color" type="text"  label="30122" default="#FFFFFFFF"/>
     </category>
     <category label="Serveur 1">
        <setting id="enableserver1" type="bool" label="30118" default="false" />

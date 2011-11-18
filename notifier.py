@@ -28,6 +28,12 @@ WINDOW_HOME = 10000
 msg = ''
 NbMsg = [0,0,0,0]
 numEmails = 0 
+#Position du texte
+x = int(Addon.getSetting( 'x' ))
+y = int(Addon.getSetting( 'y' ))
+width = int(Addon.getSetting( 'width' ))
+height = int(Addon.getSetting( 'height' ))
+
 
 MsgBox = None
 MsgBoxId = None
@@ -59,7 +65,7 @@ while (not xbmc.abortRequested):
             #oop! on est plus sur le home
             re_added_control = True
         elif re_added_control and not HomeNotVisible:
-            MsgBox = xbmcgui.ControlLabel( 50, 20, 500, 300, "" )
+            MsgBox = xbmcgui.ControlLabel( x, y, width, height, "" )
             # add control label and set default label
             homeWin.addControl( MsgBox )
             # get control id
@@ -76,7 +82,7 @@ while (not xbmc.abortRequested):
         try: MsgBox = homeWin.getControl( MsgBoxId )
         except: MsgBoxId = None
     if MsgBoxId is None:
-        MsgBox = xbmcgui.ControlLabel( 50, 20, 500, 300, "" )
+        MsgBox = xbmcgui.ControlLabel( x, y, width, height, "" )
         #retire le control s'il exist # pas vraiment besoin le test a ete fait avec homeWin.getControl( MsgBoxId )
         #try: homeWin.removeControl( MsgBox )
         #except: pass #print "Le controle n'existe pas"

@@ -26,3 +26,5 @@ function (thanks to Frost)
 - Change parameters in settings.xml
 - Display or not update time
 - Update translation
+0.1.4
+- add x,y,width, height, font and textcolor custom

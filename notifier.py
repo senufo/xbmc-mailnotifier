@@ -33,7 +33,8 @@ x = int(Addon.getSetting( 'x' ))
 y = int(Addon.getSetting( 'y' ))
 width = int(Addon.getSetting( 'width' ))
 height = int(Addon.getSetting( 'height' ))
-
+font = Addon.getSetting( 'font' )
+color = Addon.getSetting( 'color' )
 
 MsgBox = None
 MsgBoxId = None
@@ -65,7 +66,7 @@ while (not xbmc.abortRequested):
             #oop! on est plus sur le home
             re_added_control = True
         elif re_added_control and not HomeNotVisible:
-            MsgBox = xbmcgui.ControlLabel( x, y, width, height, "" )
+            MsgBox = xbmcgui.ControlLabel( x, y, width, height, '', font, color )
             # add control label and set default label
             homeWin.addControl( MsgBox )
             # get control id
@@ -82,7 +83,7 @@ while (not xbmc.abortRequested):
         try: MsgBox = homeWin.getControl( MsgBoxId )
         except: MsgBoxId = None
     if MsgBoxId is None:
-        MsgBox = xbmcgui.ControlLabel( x, y, width, height, "" )
+        MsgBox = xbmcgui.ControlLabel( x, y, width, height, '', font, color )
         #retire le control s'il exist # pas vraiment besoin le test a ete fait avec homeWin.getControl( MsgBoxId )
         #try: homeWin.removeControl( MsgBox )
         #except: pass #print "Le controle n'existe pas"

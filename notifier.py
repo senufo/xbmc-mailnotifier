@@ -25,9 +25,12 @@ __resource__   = xbmc.translatePath( os.path.join( __cwd__, 'resources', 'lib' )
 #ID de la fenetre HOME
 WINDOW_HOME = 10000 
 
+#Variables generales
 msg = ''
 NbMsg = [0,0,0,0]
 numEmails = 0 
+#No serveur
+NoServ = 1
 #Position du texte
 x = int(Addon.getSetting( 'x' ))
 y = int(Addon.getSetting( 'y' ))
@@ -35,7 +38,7 @@ width = int(Addon.getSetting( 'width' ))
 height = int(Addon.getSetting( 'height' ))
 font = Addon.getSetting( 'font' )
 color = Addon.getSetting( 'color' )
-
+ALT = True
 MsgBox = None
 MsgBoxId = None
 start_time = 0
@@ -54,8 +57,10 @@ while (not xbmc.abortRequested):
 	        if SHOW_UPDATE:
          	        up = int( intervalle ) - ( time.time() - start_time )
                         locstr = Addon.getLocalizedString(615) #Update in %i second
+                        print "MSG up = %s " % msg
                         label = "%s[CR]" %  msg + locstr % up
 		else:  #Il faut rafraichir l'affchage
+                        print "MSG = %s " % msg
 			label = '%s' % msg
                 MsgBox.setLabel( label )
             except Exception, e:
@@ -100,7 +105,7 @@ while (not xbmc.abortRequested):
     for i in range( 1, 4 ): #[1,2,3]:
         if Addon.getSetting( 'enableserver%i' % i ) == "false":
             continue
-
+        #print "I = %d " % i
         USER     = Addon.getSetting( 'user%i'   % i )
         NOM      = Addon.getSetting( 'name%i'   % i )
         SERVER   = Addon.getSetting( 'server%i' % i )
@@ -110,7 +115,7 @@ while (not xbmc.abortRequested):
         TYPE     = Addon.getSetting( 'type%i'   % i )
         FOLDER   = Addon.getSetting( 'folder%i' % i )
         
-        #print "SERVER = %s, PORT = %s, USER = %s, password = %s, SSL = %s" % (SERVER,PORT,USER, PASSWORD, SSL)
+        print "SERVER = %s, PORT = %s, USER = %s, password = %s, SSL = %s" % (SERVER,PORT,USER, PASSWORD, SSL)
 	#Total des nx messages
 	NxMsgTot = 0
 	#Pas de nx message
@@ -142,7 +147,7 @@ while (not xbmc.abortRequested):
 	          numEmails = len(imap.search(None, 'UnSeen')[1][0].split()) 
 		  print "IMAP numEmails = %d " % numEmails
 
-                #print "numEmails = %d " % numEmails
+                print "numEmails = %d " % numEmails
                 locstr = Addon.getLocalizedString(610) #message(s)
                 #msg = msg + "%s : %d %s" % (NOM,numEmails, locstr) + "\n"
                 #numEmails = 0
@@ -151,6 +156,7 @@ while (not xbmc.abortRequested):
                 if Addon.getSetting( 'erreur' ) == "true":
                      xbmc.executebuiltin("XBMC.Notification(%s : ,%s,30)" % (locstr,SERVER))
                 print "Erreur de connection : %s" % SERVER
+		#Msg affiche sur le HOME
                 msg = msg + "%s : %s\n" % (NOM,locstr)
 
             if numEmails > 0: MsgTot = True #Il y a des messages
@@ -167,14 +173,20 @@ while (not xbmc.abortRequested):
 	    print "NxMsgTot = %d, NbMsg = %d" % (NxMsgTot,NbMsg[i])
 	    locstr = Addon.getLocalizedString(id=610) #messages(s)
 	    if numEmails != 0:
+		if (ALT and i == NoServ):
+		   print "ALT %s " % NOM
+                   msg = "%s : %d " % (NOM,numEmails) + "\n"
+		elif not ALT:
+                   print "!ALT %s " % NOM
 	           msg = msg + "%s : %d " % (NOM,numEmails) + "\n"
-		   numEmails = 0
+		numEmails = 0
             if NxMsgTot > 0:
 	          locstr = Addon.getLocalizedString(id=611) #Nouveau(x) message(s)
                   #Affiche un popup a l'arrivee d'un nx msg
 	          if Addon.getSetting( 'popup' ) == "true":
 	              xbmc.executebuiltin("XBMC.Notification( ,%d %s sur %s,160)" % (NxMsgTot,locstr,NOM))
-
+    NoServ += 1  #On passe au serveur suivant
+    if (NoServ > 3): NoServ =1 #Si dernier serveur on revient au premier 
     MsgBox.setLabel( msg )
 
     #initialise start time

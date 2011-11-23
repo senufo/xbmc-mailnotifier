@@ -39,6 +39,7 @@ height = int(Addon.getSetting( 'height' ))
 font = Addon.getSetting( 'font' )
 color = Addon.getSetting( 'color' )
 ALT =  Addon.getSetting( 'alt' )
+print "ALT +> %s " % ALT
 MsgBox = None
 MsgBoxId = None
 start_time = 0
@@ -101,6 +102,21 @@ while (not xbmc.abortRequested):
 
     #On vide le message
     msg = ''
+    if ALT:
+#        if Addon.getSetting( 'enableserver%i' % NoServ ) == "false":
+#            continue
+#        #print "I = %d " % i
+        USER     = Addon.getSetting( 'user%i'   % NoServ )
+        NOM      = Addon.getSetting( 'name%i'   % NoServ )
+        SERVER   = Addon.getSetting( 'server%i' % NoServ )
+        PASSWORD = Addon.getSetting( 'pass%i'   % NoServ )
+        PORT     = Addon.getSetting( 'port%i'   % NoServ )
+        SSL      = Addon.getSetting( 'ssl%i'    % NoServ )
+        TYPE     = Addon.getSetting( 'type%i'   % NoServ )
+        FOLDER   = Addon.getSetting( 'folder%i' % NoServ )
+        
+#        print "SERVER = %s, PORT = %s, USER = %s, password = %s, SSL = %s" % (SERVER,PORT,USER, PASSWORD, SSL)
+	       
     #On recupere les parametres des trois serveurs
     for i in range( 1, 4 ): #[1,2,3]:
         if Addon.getSetting( 'enableserver%i' % i ) == "false":
@@ -192,3 +208,7 @@ while (not xbmc.abortRequested):
     #initialise start time
     start_time = time.time()
     time.sleep( .5 )
+
+
+def getNbMails():
+     print "getNbMails()"

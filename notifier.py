@@ -103,24 +103,30 @@ while (not xbmc.abortRequested):
 
     #On vide le message
     msg = ''
-    if ALT:
+    if ALT eq True:
+        print "if ALT = %s " % ALT
+    elif ALT eq False:
+        print "elif ALT = %s " % ALT
+    print "==========================="
 #        if Addon.getSetting( 'enableserver%i' % NoServ ) == "false":
 #            continue
 #        #print "I = %d " % i
-        USER     = Addon.getSetting( 'user%i'   % NoServ )
-        NOM      = Addon.getSetting( 'name%i'   % NoServ )
-        SERVER   = Addon.getSetting( 'server%i' % NoServ )
-        PASSWORD = Addon.getSetting( 'pass%i'   % NoServ )
-        PORT     = Addon.getSetting( 'port%i'   % NoServ )
-        SSL      = Addon.getSetting( 'ssl%i'    % NoServ )
-        TYPE     = Addon.getSetting( 'type%i'   % NoServ )
-        FOLDER   = Addon.getSetting( 'folder%i' % NoServ )
+#        USER     = Addon.getSetting( 'user%i'   % NoServ )
+#        NOM      = Addon.getSetting( 'name%i'   % NoServ )
+#        SERVER   = Addon.getSetting( 'server%i' % NoServ )
+#        PASSWORD = Addon.getSetting( 'pass%i'   % NoServ )
+#        PORT     = Addon.getSetting( 'port%i'   % NoServ )
+#        SSL      = Addon.getSetting( 'ssl%i'    % NoServ )
+#        TYPE     = Addon.getSetting( 'type%i'   % NoServ )
+#        FOLDER   = Addon.getSetting( 'folder%i' % NoServ )
 
 #        print "SERVER = %s, PORT = %s, USER = %s, password = %s, SSL = %s" % (SERVER,PORT,USER, PASSWORD, SSL)
 
     #On recupere les parametres des trois serveurs
     for i in range( 1, 4 ): #[1,2,3]:
         if Addon.getSetting( 'enableserver%i' % i ) == "false":
+            print "Enableserver = %s, i = %d  " % (Addon.getSetting(
+                'enableserver%i' % i), i)
             continue
         #print "I = %d " % i
         USER     = Addon.getSetting( 'user%i'   % i )
@@ -192,12 +198,13 @@ while (not xbmc.abortRequested):
             print "NxMsgTot = %d, NbMsg = %d" % (NxMsgTot, NbMsg[i])
             locstr = Addon.getLocalizedString(id=610) #messages(s)
             if numEmails != 0:
-                if (ALT and i == NoServ):
-                    print "ALT %s " % NOM
+                print "Ligne 197, numemails = %d, i = %d, NoServ = %d, ALT = %s" % (numEmails, i, NoServ, ALT)
+                if ((ALT) and (i == NoServ)):
+                    print "ALT = %s , NOM = %s " % (ALT, NOM)
                     msg = "%s : %d " % (NOM, numEmails) + "\n"
-            elif not ALT:
-                print "!ALT %s " % NOM
-                msg = msg + "%s : %d " % (NOM, numEmails) + "\n"
+                elif not ALT:
+                    print "!ALT = %s, NOM = %s " % (ALT, NOM)
+                    msg = msg + "%s : %d " % (NOM, numEmails) + "\n"
             numEmails = 0
             if NxMsgTot > 0:
                 locstr = Addon.getLocalizedString(id=611) #Nouveau(x) message(s)

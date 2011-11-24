@@ -2,8 +2,6 @@ import xbmc, xbmcgui
 import xbmcaddon
 import poplib, imaplib
 import time
-#Traitement des fichiers xml
-import xml.dom.minidom
 
 __author__     = "Senufo"
 __scriptid__   = "service.notifier"

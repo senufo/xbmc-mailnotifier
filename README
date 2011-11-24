@@ -3,6 +3,18 @@ mail-notification is a service that allows you to see the arrival of new mail on
 INSTALLATION:
 	Add the ZIP file from the XBMC interface system
 	Then configure the various mail servers, up to three
+	General Tab
+	 Time: Time in seconds between two mail surveys
+	 New mail popup: Displays a popup window when the arrival of a new & mail
+	 Popup error connection: Displays a popup error in connection
+	 Show update time: Display update time
+	 Alternate : yes/no
+	 x : display position
+	 y : display position
+	 width : display width
+	 height : display height 
+	 font : display font
+	 text color : #FFFFFFFF
 	TAB Server
 	  Enable server : yes/no
 	  My Server: The name that will appear in the HOME
@@ -13,10 +25,4 @@ INSTALLATION:
 	  SSL: SSL uses the yes or no
 	  Type: POP3 / IMAP
 	  FOLDER: IMAP folder name
-	General Tab
-	 Time: Time in seconds between two mail surveys
-	 New mail popup: Displays a popup window when the arrival of a new & mail
-	 Popup error connection: Displays a popup error in connection
-	 Show update time: Display update time
-
 Once configured it is necessary to deactivate and activate the service for the modifcations are taken into account.

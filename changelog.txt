@@ -28,3 +28,5 @@ function (thanks to Frost)
 - Update translation
 0.1.4
 - add x,y,width, height, font and textcolor custom
+0.1.5
+- add alternate display for multiple servers

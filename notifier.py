@@ -151,7 +151,7 @@ while (not xbmc.abortRequested):
                 MsgBox.setLabel( locstr % NOM )
 #Partie POP3
                 if  '0' in TYPE:  #'POP'
-                    if SSL:
+                    if SSL.lower() == 'false':
                         mail = poplib.POP3(str(SERVER), int(PORT))
                     else:
                         mail = poplib.POP3_SSL(str(SERVER), int(PORT))
@@ -160,7 +160,7 @@ while (not xbmc.abortRequested):
                     numEmails = mail.stat()[0]
 #Partie IMAP
                 if '1' in TYPE:
-                    if SSL:
+                    if SSL.lower() == 'true':
                         imap = imaplib.IMAP4_SSL(SERVER, int(PORT))
                     else:
                         imap = imaplib.IMAP4(SERVER, int(PORT))

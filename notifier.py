@@ -103,9 +103,9 @@ while (not xbmc.abortRequested):
 
     #On vide le message
     msg = ''
-    if ALT eq True:
+    if ALT.lower() == 'true':
         print "if ALT = %s " % ALT
-    elif ALT eq False:
+    elif ALT.lower() == 'false':
         print "elif ALT = %s " % ALT
     print "==========================="
 #        if Addon.getSetting( 'enableserver%i' % NoServ ) == "false":
@@ -199,10 +199,10 @@ while (not xbmc.abortRequested):
             locstr = Addon.getLocalizedString(id=610) #messages(s)
             if numEmails != 0:
                 print "Ligne 197, numemails = %d, i = %d, NoServ = %d, ALT = %s" % (numEmails, i, NoServ, ALT)
-                if ((ALT) and (i == NoServ)):
+                if ((ALT.lower() == 'true') and (i == NoServ)):
                     print "ALT = %s , NOM = %s " % (ALT, NOM)
                     msg = "%s : %d " % (NOM, numEmails) + "\n"
-                elif not ALT:
+                elif (ALT.lower() == 'false'):
                     print "!ALT = %s, NOM = %s " % (ALT, NOM)
                     msg = msg + "%s : %d " % (NOM, numEmails) + "\n"
             numEmails = 0

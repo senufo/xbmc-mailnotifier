@@ -38,7 +38,6 @@ height = int(Addon.getSetting('height'))
 font = Addon.getSetting('font')
 color = Addon.getSetting('color')
 ALT = Addon.getSetting('alt')
-print "ALT +> %s " % ALT
 MsgBox = None
 MsgBoxId = None
 start_time = 0
@@ -101,32 +100,13 @@ while (not xbmc.abortRequested):
 
     #On vide le message
     msg = ''
-    if ALT.lower() == 'true':
-        print "if ALT = %s " % ALT
-    elif ALT.lower() == 'false':
-        print "elif ALT = %s " % ALT
-    print "==========================="
-#        if Addon.getSetting( 'enableserver%i' % NoServ ) == "false":
-#            continue
-#        #print "I = %d " % i
-#        USER     = Addon.getSetting( 'user%i'   % NoServ )
-#        NOM      = Addon.getSetting( 'name%i'   % NoServ )
-#        SERVER   = Addon.getSetting( 'server%i' % NoServ )
-#        PASSWORD = Addon.getSetting( 'pass%i'   % NoServ )
-#        PORT     = Addon.getSetting( 'port%i'   % NoServ )
-#        SSL      = Addon.getSetting( 'ssl%i'    % NoServ )
-#        TYPE     = Addon.getSetting( 'type%i'   % NoServ )
-#        FOLDER   = Addon.getSetting( 'folder%i' % NoServ )
-
-#        print "SERVER = %s, PORT = %s, USER = %s, password = %s, SSL = %s" % (SERVER,PORT,USER, PASSWORD, SSL)
 
     #On recupere les parametres des trois serveurs
     for i in range( 1, 4 ): #[1,2,3]:
         if Addon.getSetting( 'enableserver%i' % i ) == "false":
-            print "Enableserver = %s, i = %d  " % (Addon.getSetting(
-                'enableserver%i' % i), i)
+            #print "Enableserver = %s, i = %d  " % (Addon.getSetting(
+            #    'enableserver%i' % i), i)
             continue
-        #print "I = %d " % i
         USER     = Addon.getSetting( 'user%i'   % i )
         NOM      = Addon.getSetting( 'name%i'   % i )
         SERVER   = Addon.getSetting( 'server%i' % i )
@@ -136,7 +116,7 @@ while (not xbmc.abortRequested):
         TYPE     = Addon.getSetting( 'type%i'   % i )
         FOLDER   = Addon.getSetting( 'folder%i' % i )
 
-        print "SERVER = %s, PORT = %s, USER = %s, password = %s, SSL = %s" % (SERVER, PORT, USER, PASSWORD, SSL)
+        #print "SERVER = %s, PORT = %s, USER = %s, password = %s, SSL = %s" % (SERVER, PORT, USER, PASSWORD, SSL)
 #Total des nx messages
         NxMsgTot = 0
 #Pas de nx message
@@ -166,9 +146,9 @@ while (not xbmc.abortRequested):
                     FOLDER = Addon.getSetting( 'folder%i' % i )
                     imap.select(FOLDER)
                     numEmails = len(imap.search(None, 'UnSeen')[1][0].split())
-                    print "IMAP numEmails = %d " % numEmails
+                    #print "IMAP numEmails = %d " % numEmails
 
-                print "numEmails = %d " % numEmails
+                #print "numEmails = %d " % numEmails
                 locstr = Addon.getLocalizedString(610) #message(s)
                 #msg = msg + "%s : %d %s" % (NOM,numEmails, locstr) + "\n"
                 #numEmails = 0
@@ -185,23 +165,17 @@ while (not xbmc.abortRequested):
             #On regarde si un nouveau mail est arrive
             if NbMsg[i] == 0:
                 NbMsg[i] = numEmails
-            print "NbMsg %d " % NbMsg[i]
             NxMsg = numEmails - NbMsg[i]
-            print "NxMsg = %d " % NxMsg
             if NxMsg > 0:
                 NbMsg[i] = NbMsg[i] + NxMsg
                 NxMsgTot = NxMsgTot + NxMsg
             else:
                 NbMsg[i] = numEmails
-            print "NxMsgTot = %d, NbMsg = %d" % (NxMsgTot, NbMsg[i])
             locstr = Addon.getLocalizedString(id=610) #messages(s)
             if numEmails != 0:
-                print "Ligne 197, numemails = %d, i = %d, NoServ = %d, ALT = %s" % (numEmails, i, NoServ, ALT)
                 if ((ALT.lower() == 'true') and (i == NoServ)):
-                    print "ALT = %s , NOM = %s " % (ALT, NOM)
                     msg = "%s : %d " % (NOM, numEmails) + "\n"
                 elif (ALT.lower() == 'false'):
-                    print "!ALT = %s, NOM = %s " % (ALT, NOM)
                     msg = msg + "%s : %d " % (NOM, numEmails) + "\n"
             numEmails = 0
             if NxMsgTot > 0:
@@ -216,7 +190,3 @@ while (not xbmc.abortRequested):
     #initialise start time
     start_time = time.time()
     time.sleep( .5 )
-
-
-def getNbMails():
-    print "getNbMails()"

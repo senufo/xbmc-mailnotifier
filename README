@@ -15,6 +15,7 @@ INSTALLATION:
 	 height : display height 
 	 font : display font
 	 text color : #FFFFFFFF
+         Display in skin : True/False (default  False)
 	TAB Server
 	  Enable server : yes/no
 	  My Server: The name that will appear in the HOME
@@ -26,3 +27,9 @@ INSTALLATION:
 	  Type: POP3 / IMAP
 	  FOLDER: IMAP folder name
 Once configured it is necessary to deactivate and activate the service for the modifcations are taken into account.
+
+If you check SKIN to True the messages  will be displayed only if the skin Home.xml file defined in the property such as:
+
+<label> $ INFO [Window.property (notifier.nameX)]: $ INFO [Window.property (notifier.msgX)] </ label>
+
+Where X is the number of the server defined in the plugin options

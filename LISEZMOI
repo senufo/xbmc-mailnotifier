@@ -15,6 +15,7 @@ INSTALLATION:
 	 Hauteur : Hauteur de l'affichage
 	 Police : Police utilisée pour l'affichage
  	 Couleur du texte : sous la forme xbmc (#FFFFFFFF)
+         Affichage défini dans le skin : True/False (Défaut : False)
 	ONGLET Serveur
          Active le Serveur :oui/non
  	 Mon du serveur : Nom qui apparaitra dans la fenetre HOME
@@ -28,3 +29,8 @@ INSTALLATION:
 
 Une fois configuré il est nécessaire déactiver et d'activer le service pour que les modifcations soient prise en compte.
 
+Si vous cochez SKIN à True l'affichage se fera uniquement si le skin défini dans son fichier Home.xml les property comme par exemple :
+
+<label>$INFO[Window.property(notifier.nameX)] : $INFO[Window.property(notifier.msgX)] </label>
+
+Où X est le numéro du serveur défini dans les options du plugin

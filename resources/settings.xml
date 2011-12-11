@@ -13,6 +13,7 @@
        <setting id="height" type="text"  label="30120" default="300"/>
        <setting id="font" type="text"  label="30121" default="font13"/>
        <setting id="color" type="text"  label="30122" default="#FFFFFFFF"/>
+       <setting id="skin" type="bool" label="30124" default="False" />
     </category>
     <category label="Serveur 1">
        <setting id="enableserver1" type="bool" label="30118" default="false" />

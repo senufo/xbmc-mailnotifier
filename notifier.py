@@ -3,13 +3,11 @@ import xbmcaddon
 import poplib, imaplib
 import time
 
-print "LIGNE 6"
 __author__     = "Senufo"
 __scriptid__   = "service.notifier"
 __scriptname__ = "Notifier"
 
 Addon          = xbmcaddon.Addon(__scriptid__)
-print "LIGNE 12"
 
 __cwd__        = Addon.getAddonInfo('path')
 __version__    = Addon.getAddonInfo('version')
@@ -20,12 +18,9 @@ __resource__   = xbmc.translatePath(os.path.join(__cwd__, 'resources',
                                                  'lib'))
 
 #sys.path.append (__resource__)
-print "ligne 23"
-
 
 #ID de la fenetre HOME
 WINDOW_HOME = 10000
-Home = 10000
 
 #Variables generales
 msg = ''
@@ -41,11 +36,12 @@ height = int(Addon.getSetting('height'))
 font = Addon.getSetting('font')
 color = Addon.getSetting('color')
 ALT = Addon.getSetting('alt')
+SKIN = Addon.getSetting('skin')
+print "SKIN = %s " % SKIN
 MsgBox = None
 MsgBoxId = None
 start_time = 0
 re_added_control = False
-print "ligne 48"
 #Verifie que xbmc tourne
 while (not xbmc.abortRequested):
     #Attente avant de relever les mails
@@ -64,7 +60,8 @@ while (not xbmc.abortRequested):
                 else: #Il faut rafraichir l'affichage
                     #print "MSG = %s " % msg
                     label = '%s' % msg
-                MsgBox.setLabel( label )
+                if (SKIN == "false"): MsgBox.setLabel( msg )
+                else: MsgBox.setLabel( '' )
             except Exception, e:
                 print str(e)
 
@@ -86,10 +83,6 @@ while (not xbmc.abortRequested):
         continue
 
     homeWin = xbmcgui.Window(WINDOW_HOME)
-    homeWin.setProperty( "username", "FROST" )
-    homeWin.setProperty( "server" , "SERVER" )
-    homeWin.setProperty( "name" , "NOM" )
-    homeWin.setProperty( "msg" , "numeEmails" )
 
     #xbmc.executebuiltin( "SetProperty(username,'eeee',10000)" )
     if MsgBoxId:
@@ -187,7 +180,7 @@ while (not xbmc.abortRequested):
                     msg = "%s : %d " % (NOM, numEmails) + "\n"
                 elif (ALT.lower() == 'false'):
                     msg = msg + "%s : %d " % (NOM, numEmails) + "\n"
-                #homeWin.setProperty( "username", "FROST" )
+                #Property pour afficher directement dans le skin avec le Home.xml
                 homeWin.setProperty( "server" , ("%s" % SERVER ))
                 homeWin.setProperty( "name" , ("%s" % NOM ))
                 homeWin.setProperty( "msg" , ("%s" % numEmails ))
@@ -199,7 +192,11 @@ while (not xbmc.abortRequested):
                     xbmc.executebuiltin("XBMC.Notification( ,%d %s sur %s,160)" % (NxMsgTot, locstr, NOM))
     NoServ += 1  #On passe au serveur suivant
     if (NoServ > 3): NoServ = 1 #Si dernier serveur on revient au premier
-    MsgBox.setLabel( msg )
+    #On affiche soit directement dans le home, soit en utilsant le skin (SKIN = True)
+    if (SKIN == "false"): MsgBox.setLabel( msg )
+    else : 
+        print "SKIN == True"
+        MsgBox.setLabel( '' )
 
     #initialise start time
     start_time = time.time()

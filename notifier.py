@@ -181,9 +181,11 @@ while (not xbmc.abortRequested):
                 elif (ALT.lower() == 'false'):
                     msg = msg + "%s : %d " % (NOM, numEmails) + "\n"
                 #Property pour afficher directement dans le skin avec le Home.xml
-                homeWin.setProperty( "server" , ("%s" % SERVER ))
-                homeWin.setProperty( "name" , ("%s" % NOM ))
-                homeWin.setProperty( "msg" , ("%s" % numEmails ))
+                #homeWin.setProperty( "server" , ("%s" % SERVER ))
+                homeWin.setProperty( ("notifier.name%i" % i) , ("%s" % NOM ))
+                homeWin.setProperty( ("notifier.msg%i" % i) , ("%i" % numEmails ))
+                print "name = %s %i" % (NOM, i)
+                print "msg = %i %i" % (numEmails, i)
             numEmails = 0
             if NxMsgTot > 0:
                 locstr = Addon.getLocalizedString(id=611) #Nouveau(x) message(s)

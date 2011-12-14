@@ -33,3 +33,5 @@ If you check SKIN to True the messages  will be displayed only if the skin Home.
 <label> $ INFO [Window.property (notifier.nameX)]: $ INFO [Window.property (notifier.msgX)] </ label>
 
 Where X is the number of the server defined in the plugin options
+
+For the skinner : notifier.enableX property which is true if the server is enabled and false if the server is not enabled (X is the number of server defined in the plugin options)

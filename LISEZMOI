@@ -34,3 +34,5 @@ Si vous cochez SKIN à True l'affichage se fera uniquement si le skin défini da
 <label>$INFO[Window.property(notifier.nameX)] : $INFO[Window.property(notifier.msgX)] </label>
 
 Où X est le numéro du serveur défini dans les options du plugin
+
+Pour les skinner il y a la propriété notifier.enableX qui est à true si le serveur est activé et à false si le serveur n'est pas activé (X est le numéro du serveur défini dans les options du plugin)

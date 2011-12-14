@@ -37,7 +37,6 @@ font = Addon.getSetting('font')
 color = Addon.getSetting('color')
 ALT = Addon.getSetting('alt')
 SKIN = Addon.getSetting('skin')
-print "SKIN = %s " % SKIN
 MsgBox = None
 MsgBoxId = None
 start_time = 0
@@ -105,7 +104,10 @@ while (not xbmc.abortRequested):
 
     #On recupere les parametres des trois serveurs
     for i in range( 1, 4 ): #[1,2,3]:
-        if Addon.getSetting( 'enableserver%i' % i ) == "false":
+        ENABLE =  Addon.getSetting( 'enableserver%i' % i )
+        homeWin.setProperty( ("notifier.enable%i" % i) , ("%s" % ENABLE ))
+        if ENABLE == "false":
+            #homeWin.setProperty( ("notifier.enable%i" % i) , ("false"))
             #print "Enableserver = %s, i = %d  " % (Addon.getSetting(
             #    'enableserver%i' % i), i)
             continue
@@ -154,7 +156,6 @@ while (not xbmc.abortRequested):
                 locstr = Addon.getLocalizedString(610) #message(s)
                 #msg = msg + "%s : %d %s" % (NOM,numEmails, locstr) + "\n"
                 #numEmails = 0
-                #xbmc.executebuiltin( "SetProperty(username,%s,Home)" % "FROST" )
             except:
                 locstr = Addon.getLocalizedString(613) #erreur de connection
                 if Addon.getSetting( 'erreur' ) == "true":
@@ -184,8 +185,8 @@ while (not xbmc.abortRequested):
                 #homeWin.setProperty( "server" , ("%s" % SERVER ))
                 homeWin.setProperty( ("notifier.name%i" % i) , ("%s" % NOM ))
                 homeWin.setProperty( ("notifier.msg%i" % i) , ("%i" % numEmails ))
-                print "name = %s %i" % (NOM, i)
-                print "msg = %i %i" % (numEmails, i)
+                #print "name = %s %i" % (NOM, i)
+                #print "msg = %i %i" % (numEmails, i)
             numEmails = 0
             if NxMsgTot > 0:
                 locstr = Addon.getLocalizedString(id=611) #Nouveau(x) message(s)

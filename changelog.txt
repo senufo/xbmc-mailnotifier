@@ -30,3 +30,9 @@ function (thanks to Frost)
 - add x,y,width, height, font and textcolor custom
 0.1.5
 - add alternate display for multiple servers
+0.1.6
+- Correct bugs in Boolean test
+0.1.7
+- Cleanning code, remove unused function
+0.1.8
+- add Window.property notifier.nameX, notifier.msgX and notifier.enableX

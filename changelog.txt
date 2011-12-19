@@ -36,3 +36,6 @@ function (thanks to Frost)
 - Cleanning code, remove unused function
 0.1.8
 - add Window.property notifier.nameX, notifier.msgX and notifier.enableX
+0.1.9
+- add max_msg_size and filter imap in settings.xml for compatibility with
+scritp.mail

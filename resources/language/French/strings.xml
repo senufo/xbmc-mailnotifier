@@ -31,5 +31,8 @@
     <string id="30122">Couleur du texte</string>
     <string id="30123">Alternatif</string>
     <string id="30124">Affichage défini dans le skin</string>
+    <string id="30127">Taille max du message</string>
+    <string id="30128">Filtre de recherche des messages IMAP</string>
+
 </strings>
 

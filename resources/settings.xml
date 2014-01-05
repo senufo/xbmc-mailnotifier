@@ -16,7 +16,8 @@
        <setting id="skin" type="bool" label="30124" default="False" />
        <setting id="max_msg_size" type="text" label="30127" default="10000"/>
        <setting id="search_param" type="text" label="30128" default="unseen"/>
- 
+       <setting id="debug" type="bool" label="30129" default="False"/>
+
     </category>
     <category label="Serveur 1">
        <setting id="enableserver1" type="bool" label="30118" default="false" />

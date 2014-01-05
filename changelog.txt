@@ -39,3 +39,5 @@ function (thanks to Frost)
 0.1.9
 - add max_msg_size and filter imap in settings.xml for compatibility with
 scritp.mail
+0.2.0
+- add debug message function

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <strings>
-    
+
   <!-- English -->
-  
+
     <string id="610">message(s)</string>
     <string id="611">(%s) New e-mail%s</string>
     <string id="612">Received on %s (UTC)</string>
@@ -33,5 +33,6 @@
     <string id="30124">Display by skin</string>
     <string id="30127">Max Size Message</string>
     <string id="30128">Filter search messages IMAP</string>
+    <string id="30129">Debug</string>
 </strings>
 

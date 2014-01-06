@@ -86,10 +86,25 @@ while (not xbmc.abortRequested):
         if HomeNotVisible:
             #oop! on est plus sur le home
             re_added_control = True
-        elif re_added_control and not HomeNotVisible:
-            MsgBox = xbmcgui.ControlLabel( x, y, width, height, '', font, color )
+        #elif re_added_control and not HomeNotVisible:
+        else:
+            try:
+                MsgBox = homeWin.getControl( MsgBoxId )
+                debug ("Le controle existe, 93")
+            except:
+                MsgBox = xbmcgui.ControlLabel( x, y, width, height, '', font, color )
             # add control label and set default label
-            homeWin.addControl( MsgBox )
+            #msg = msg + "Ligne 92"
+            #try:
+            #    homeWin.removeControl( MsgBox )
+            #except:
+            #    pass
+            debug ("Ligne 102")
+            try:
+                homeWin.addControl( MsgBox )
+            except:
+                pass
+            debug ("Ligne 107")
             # get control id
             MsgBoxId = MsgBox.getId()
             re_added_control = False
@@ -102,10 +117,17 @@ while (not xbmc.abortRequested):
     homeWin = xbmcgui.Window(WINDOW_HOME)
 
     #xbmc.executebuiltin( "SetProperty(username,'eeee',10000)" )
+    debug ("MsgBoxId = %s" % MsgBoxId)
     if MsgBoxId:
-        try: MsgBox = homeWin.getControl( MsgBoxId )
-        except: MsgBoxId = None
+        debug ("Test MsgID 106")
+        try:
+            MsgBox = homeWin.getControl( MsgBoxId )
+            debug ("Le controle existe")
+        except:
+            MsgBoxId = None
+            debug ("Le controle pas la")
     if MsgBoxId is None:
+        debug ("Test MsgID 116")
         MsgBox = xbmcgui.ControlLabel( x, y, width, height, '', font, color )
         #retire le control s'il exist # pas vraiment besoin le test a ete fait avec homeWin.getControl( MsgBoxId )
         try: homeWin.removeControl( MsgBox )
@@ -113,6 +135,7 @@ while (not xbmc.abortRequested):
             debug("Le controle n\'existe pas")
             pass
         # add control label and set default label
+        msg = msg + "Ligne 122"
         homeWin.addControl( MsgBox )
         # get control id
         MsgBoxId = MsgBox.getId()

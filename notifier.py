@@ -45,11 +45,16 @@ width = int(Addon.getSetting('width'))
 height = int(Addon.getSetting('height'))
 font = Addon.getSetting('font')
 color = Addon.getSetting('color')
+#Affichage alternatif ??
 ALT = Addon.getSetting('alt')
+#Display in the skin
 SKIN = Addon.getSetting('skin')
+#ID du controle dans la fenetre Home.xml
 MsgBox = None
 MsgBoxId = None
+
 start_time = 0
+#Flag for add or not control in HOME
 re_added_control = False
 #Verifie que xbmc tourne
 while (not xbmc.abortRequested):
@@ -58,9 +63,11 @@ while (not xbmc.abortRequested):
     if start_time and (time.time() - start_time) < intervalle:
         time.sleep(.5)
         SHOW_UPDATE     = Addon.getSetting('show_update') == "true"
+        #if control exist
         if MsgBox:
             # optional show le temps qu'il reste avant la prochaine MAJ
             try:
+                #If SHOW_UPDATE true
                 if SHOW_UPDATE:
                     up = int(intervalle) - (time.time() - start_time)
                     locstr = Addon.getLocalizedString(615)  #Update in %i second
@@ -72,7 +79,6 @@ while (not xbmc.abortRequested):
                     debug( "MSG = %s " % msg)
                     label = '%s' % msg
                 if (SKIN == "false"):
-                    MsgBox.setLabel( '+++++++++++++++++++++++++++++++++++++++++' )
                     MsgBox.setLabel( msg )
                     debug( "setlabel : %s" % msg)
                 else:
@@ -88,46 +94,35 @@ while (not xbmc.abortRequested):
             re_added_control = True
         #elif re_added_control and not HomeNotVisible:
         else:
+            #Try to get getcontrol if not exist make a new one
             try:
                 MsgBox = homeWin.getControl( MsgBoxId )
-                debug ("Le controle existe, 93")
             except:
                 MsgBox = xbmcgui.ControlLabel( x, y, width, height, '', font, color )
             # add control label and set default label
-            #msg = msg + "Ligne 92"
-            #try:
-            #    homeWin.removeControl( MsgBox )
-            #except:
-            #    pass
-            debug ("Ligne 102")
             try:
                 homeWin.addControl( MsgBox )
             except:
                 pass
-            debug ("Ligne 107")
             # get control id
             MsgBoxId = MsgBox.getId()
+            #Not used now ?
             re_added_control = False
             # reload addon setting possible change
             Addon = xbmcaddon.Addon( __scriptid__ )
 
         # continue le while sans faire le reste
         continue
-
+    #If firstime get ID of WINDOW_HOME
     homeWin = xbmcgui.Window(WINDOW_HOME)
-
-    #xbmc.executebuiltin( "SetProperty(username,'eeee',10000)" )
-    debug ("MsgBoxId = %s" % MsgBoxId)
+    #Verif if control exist
     if MsgBoxId:
-        debug ("Test MsgID 106")
         try:
             MsgBox = homeWin.getControl( MsgBoxId )
-            debug ("Le controle existe")
         except:
             MsgBoxId = None
-            debug ("Le controle pas la")
+    #If no exist make a newone
     if MsgBoxId is None:
-        debug ("Test MsgID 116")
         MsgBox = xbmcgui.ControlLabel( x, y, width, height, '', font, color )
         #retire le control s'il exist # pas vraiment besoin le test a ete fait avec homeWin.getControl( MsgBoxId )
         try: homeWin.removeControl( MsgBox )
@@ -135,10 +130,10 @@ while (not xbmc.abortRequested):
             debug("Le controle n\'existe pas")
             pass
         # add control label and set default label
-        msg = msg + "Ligne 122"
         homeWin.addControl( MsgBox )
         # get control id
         MsgBoxId = MsgBox.getId()
+    #Display update msg
     locstr = Addon.getLocalizedString(616) #Mise a jour
     MsgBox.setLabel( locstr % ' ' )
 
@@ -245,7 +240,6 @@ while (not xbmc.abortRequested):
     if (SKIN == "false"):
         MsgBox.setLabel( msg )
     else :
-        debug( "SKIN == True")
         MsgBox.setLabel( '' )
 
     #initialise start time

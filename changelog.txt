@@ -41,3 +41,5 @@ function (thanks to Frost)
 scritp.mail
 0.2.0
 - add debug message function
+0.2.2
+- Update comments and debug messages. Fix wrong indent

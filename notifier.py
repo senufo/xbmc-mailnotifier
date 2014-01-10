@@ -84,10 +84,9 @@ while (not xbmc.abortRequested):
                 else:
                     MsgBox.setLabel( '' )
                     debug( 'Clean label')
-
             except Exception, e:
                 print str(e)
-
+        #Fin du if MsgBox
         HomeNotVisible = xbmc.getCondVisibility( "!Window.IsVisible(10000)" )
         if HomeNotVisible:
             #oop! on est plus sur le home
@@ -110,7 +109,7 @@ while (not xbmc.abortRequested):
             re_added_control = False
             # reload addon setting possible change
             Addon = xbmcaddon.Addon( __scriptid__ )
-
+        #Fin du HomeNotVisible
         # continue le while sans faire le reste
         continue
     #If firstime get ID of WINDOW_HOME
@@ -148,6 +147,7 @@ while (not xbmc.abortRequested):
             #homeWin.setProperty( ("notifier.enable%i" % i) , ("false"))
             #debug( :Enableserver = %s, i = %d  " % (Addon.getSetting(
             #    'enableserver%i' % i), i)
+            #Si le serveur n'est pas defini on passe au suivant
             continue
         USER     = Addon.getSetting( 'user%i'   % i )
         NOM      = Addon.getSetting( 'name%i'   % i )
@@ -201,11 +201,12 @@ while (not xbmc.abortRequested):
                     xbmc.executebuiltin("XBMC.Notification(%s : ,%s,30)" % (locstr, SERVER))
                 debug( "Erreur de connection : %s" % SERVER)
 #Msg affiche sur le HOME
-                msg = msg + "%s : %s\n" % (NOM, locstr)
+            msg = msg + "%s : %s\n" % (NOM, locstr)
 
             if numEmails > 0:
                 MsgTot = True #Il y a des messages
             #On regarde si un nouveau mail est arrive
+            #dans NbMsg on stocke le nb de messages qui sont sur le serveur
             if NbMsg[i] == 0:
                 NbMsg[i] = numEmails
             NxMsg = numEmails - NbMsg[i]
@@ -215,10 +216,14 @@ while (not xbmc.abortRequested):
             else:
                 NbMsg[i] = numEmails
             locstr = Addon.getLocalizedString(id=610) #messages(s)
+            #Si il y a des msgs sur le serveur
             if numEmails != 0:
+                #Si affichage alternatif (les serveurs les uns apres les autres)
+                #On affiche/stocke un seul serveur
                 if ((ALT.lower() == 'true') and (i == NoServ)):
                     msg = "%s : %d " % (NOM, numEmails) + "\n"
                 #elif (ALT.lower() == 'false'):
+                #Sinon on stocke le resultats de tout les serveurs
                 else:
                     msg = msg + "%s : %d " % (NOM, numEmails) + "\n"
                 #Property pour afficher directement dans le skin avec le Home.xml
@@ -227,6 +232,7 @@ while (not xbmc.abortRequested):
                 homeWin.setProperty( ("notifier.msg%i" % i) , ("%i" % numEmails ))
                 debug( "name = %s %i" % (NOM, i))
                 debug( "numEmails = %i, Server : %i" % (numEmails, i))
+                debug( "notifier.msg%i, Server : %s, numEmails : %i" % (i, NOM, numEmails))
                 debug( "Affiche 202 : %s" % msg)
             numEmails = 0
             if NxMsgTot > 0:

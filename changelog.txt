@@ -43,3 +43,6 @@ scritp.mail
 - add debug message function
 0.2.2
 - Update comments and debug messages. Fix wrong indent
+0.2.3
+- Display msg even if the nb msg = zero
+

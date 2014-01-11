@@ -73,8 +73,8 @@ while (not xbmc.abortRequested):
                     locstr = Addon.getLocalizedString(615)  #Update in %i second
                     debug( "MSG up = %s " % msg)
                     label = "%s[CR], %s : %s" %  (msg,locstr,up)
-                    debug_string = "Msg = %s, Update = %s" %  (msg, up)
-                    debug( "label = %s " % debug_string)
+                    #debug_string = "Msg = %s, Update = %s" %  (msg, up)
+                    #debug( "label = %s " % debug_string)
                 else: #Il faut rafraichir l'affichage
                     debug( "MSG = %s " % msg)
                     label = '%s' % msg
@@ -217,23 +217,23 @@ while (not xbmc.abortRequested):
                 NbMsg[i] = numEmails
             locstr = Addon.getLocalizedString(id=610) #messages(s)
             #Si il y a des msgs sur le serveur
-            if numEmails != 0:
+            #if numEmails != 0:
                 #Si affichage alternatif (les serveurs les uns apres les autres)
                 #On affiche/stocke un seul serveur
-                if ((ALT.lower() == 'true') and (i == NoServ)):
-                    msg = "%s : %d " % (NOM, numEmails) + "\n"
+            if ((ALT.lower() == 'true') and (i == NoServ)):
+                msg = "%s : %d " % (NOM, numEmails) + "\n"
                 #elif (ALT.lower() == 'false'):
                 #Sinon on stocke le resultats de tout les serveurs
-                else:
-                    msg = msg + "%s : %d " % (NOM, numEmails) + "\n"
+            else:
+                msg = msg + "%s : %d " % (NOM, numEmails) + "\n"
                 #Property pour afficher directement dans le skin avec le Home.xml
                 #homeWin.setProperty( "server" , ("%s" % SERVER ))
-                homeWin.setProperty( ("notifier.name%i" % i) , ("%s" % NOM ))
-                homeWin.setProperty( ("notifier.msg%i" % i) , ("%i" % numEmails ))
-                debug( "name = %s %i" % (NOM, i))
-                debug( "numEmails = %i, Server : %i" % (numEmails, i))
-                debug( "notifier.msg%i, Server : %s, numEmails : %i" % (i, NOM, numEmails))
-                debug( "Affiche 202 : %s" % msg)
+            homeWin.setProperty( ("notifier.name%i" % i) , ("%s" % NOM ))
+            homeWin.setProperty( ("notifier.msg%i" % i) , ("%i" % numEmails ))
+                #debug( "name = %s %i" % (NOM, i))
+                #debug( "numEmails = %i, Server : %i" % (numEmails, i))
+            debug( "235 notifier.msg%i, Server : %s, numEmails : %i" % (i, NOM, numEmails))
+            debug( "Affiche 236 : %s" % msg)
             numEmails = 0
             if NxMsgTot > 0:
                 locstr = Addon.getLocalizedString(id=611) #Nouveau(x) message(s)

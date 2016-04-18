@@ -25,7 +25,7 @@ __profile__    = xbmc.translatePath(Addon.getAddonInfo('profile'))
 DEBUG_LOG = Addon.getSetting('debug')
 if 'true' in DEBUG_LOG: DEBUG_LOG = True
 else: DEBUG_LOG = False
-DEBUG_LOG = True
+#DEBUG_LOG = True
 
 # sys.path.append (__resource__)
 # Function Debug

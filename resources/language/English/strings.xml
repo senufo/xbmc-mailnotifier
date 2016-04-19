@@ -29,10 +29,9 @@
     <string id="30120">Heigth</string>
     <string id="30121">Font</string>
     <string id="30122">Text color</string>
-    <string id="30123">Alternative</string>
+    <string id="30123">Alternate display (Display servers one after one)</string>
     <string id="30124">Display by skin</string>
     <string id="30127">Max Size Message</string>
     <string id="30128">Filter search messages IMAP</string>
     <string id="30129">Debug</string>
 </strings>
-

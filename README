@@ -8,11 +8,11 @@ INSTALLATION:
 	 New mail popup: Displays a popup window when the arrival of a new & mail
 	 Popup error connection: Displays a popup error in connection
 	 Show update time: Display update time
-	 Alternate : yes/no
+	 Alternate display (Display servers one after one) : yes/no
 	 x : display position
 	 y : display position
 	 width : display width
-	 height : display height 
+	 height : display height
 	 font : display font
 	 text color : #FFFFFFFF
          Display in skin : True/False (default  False)

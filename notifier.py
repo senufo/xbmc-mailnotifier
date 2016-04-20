@@ -23,8 +23,8 @@ __profile__    = xbmc.translatePath(Addon.getAddonInfo('profile'))
 #                                                 'lib'))
 
 DEBUG_LOG = Addon.getSetting('debug')
-if 'true' in DEBUG_LOG: DEBUG_LOG = True
-else: DEBUG_LOG = False
+if 'true' in DEBUG_LOG: DEBUG_LOG = 1 #loglevel == 1 (DEBUG, shows all)
+else: DEBUG_LOG = -1 #(NONE, nothing at all is logged)
 #DEBUG_LOG = True
 
 # sys.path.append (__resource__)
@@ -79,16 +79,16 @@ while (not xbmc.abortRequested):
                 if SHOW_UPDATE:
                     up = int(intervalle) - (time.time() - start_time)
                     locstr = Addon.getLocalizedString(615)  # Update in %i second
-                    debug("MSG up = %s " % msg)
+                    xbmc.log(("[%s] : MSG up = %s " % (__scriptname__, msg),DEBUG_LOG))
                     label = "%s[CR], %s : %s" % (msg, locstr, up)
                     debug_string = "Msg = %s, Update = %s" % (msg, up)
-                    debug("label = %s " % debug_string)
+                    xbmc.log(("[%s] : label = %s " % debug_string),DEBUG_LOG)
                 else:  # Need to refresh display
-                    debug("MSG = %s " % msg)
+                    xbmc.log(("[%s] : MSG = %s " % (__scriptname__, msg),DEBUG_LOG))
                     label = '%s' % msg
                 if (SKIN == "false"):
                     MsgBox.setLabel(msg)
-                    debug("setlabel : %s" % msg)
+                    xbmc.log(("[%s] : setlabel : %s" % (__scriptname__, msg),DEBUG_LOG))
                 else:
                     MsgBox.setLabel('')
                     debug('Clean label')
@@ -135,7 +135,7 @@ while (not xbmc.abortRequested):
         try:
             homeWin.removeControl(MsgBox)
         except:
-            debug("Control don\'t exist")
+            xbmc.log(("[%s] : Control don\'t exist" % __scriptname__),DEBUG_LOG)
             pass
         # add control label and set default label
         homeWin.addControl(MsgBox)
@@ -154,7 +154,7 @@ while (not xbmc.abortRequested):
         homeWin.setProperty(("notifier.enable%i" % i), ("%s" % ENABLE))
         if ENABLE == "false":
             # homeWin.setProperty( ("notifier.enable%i" % i) , ("false"))
-            debug("Enableserver = %s, i = %d  " % (Addon.getSetting('enableserver%i' % i), i))
+            xbmc.log(("[%s] : Enableserver = %s, i = %d  " % (__scriptname__, Addon.getSetting('enableserver%i' % i), i),DEBUG_LOG))
             # If server not defined continue with the next
             continue
         USER     = Addon.getSetting('user%i'   % i)
@@ -166,7 +166,8 @@ while (not xbmc.abortRequested):
         TYPE     = Addon.getSetting('type%i'   % i)
         FOLDER   = Addon.getSetting('folder%i' % i)
 
-        debug("SERVER = %s, PORT = %s, USER = %s, password = %s, SSL = %s" % (SERVER, PORT, USER, PASSWORD, SSL))
+        #debug("SERVER = %s, PORT = %s, USER = %s, password = %s, SSL = %s" % (SERVER, PORT, USER, PASSWORD, SSL))
+        xbmc.log(("[%s] : SERVER = %s, PORT = %s, USER = %s, password = %s, SSL = %s" % (__scriptname__, SERVER, PORT, USER, PASSWORD, SSL)), DEBUG_LOG)
 # Total new messages
         NxMsgTot = 0
 # No new message
@@ -186,7 +187,7 @@ while (not xbmc.abortRequested):
                     mail.user(str(USER))
                     mail.pass_(str(PASSWORD))
                     numEmails = mail.stat()[0]
-                    debug("POP numEmails = %d " % numEmails)
+                    xbmc.log(("[%s] : POP numEmails = %d " % (__scriptname__, numEmails)),DEBUG_LOG)
 # Party IMAP
                 if '1' in TYPE:
                     if SSL.lower() == 'true':
@@ -197,7 +198,7 @@ while (not xbmc.abortRequested):
                     FOLDER = Addon.getSetting('folder%i' % i)
                     imap.select(FOLDER)
                     numEmails = len(imap.search(None, 'UnSeen')[1][0].split())
-                    debug("IMAP numEmails = %d " % numEmails)
+                    xbmc.log(("[%s] : IMAP numEmails = %d " % (__scriptname__,numEmails)),DEBUG_LOG)
 
                 # debug( :numEmails = %d " % numEmails
                 locstr = Addon.getLocalizedString(610)  # message(s)
@@ -207,7 +208,7 @@ while (not xbmc.abortRequested):
                 locstr = Addon.getLocalizedString(613)  # Connexion Error
                 if Addon.getSetting('erreur') == "true":
                     xbmc.executebuiltin("XBMC.Notification(%s : ,%s,30)" % (locstr, SERVER))
-                debug("Erreur de connection : %s" % SERVER)
+                xbmc.log(("[%s] : Erreur de connection : %s" % (__scriptname__, SERVER)),DEBUG_LOG)
 # Display Msg on the HOME
             #msg = msg + "%s => %s\n" % (NOM, locstr)
 
@@ -240,8 +241,8 @@ while (not xbmc.abortRequested):
             homeWin.setProperty(("notifier.msg%i" % i), ("%i" % numEmails))
                 # debug( "name = %s %i" % (NOM, i))
                 # debug( "numEmails = %i, Server : %i" % (numEmails, i))
-            debug("235 notifier.msg%i, Server : %s, numEmails : %i" % (i, NOM, numEmails))
-            debug("Affiche 236 : %s" % msg)
+            xbmc.log(("[%s] : 235 notifier.msg%i, Server : %s, numEmails : %i" % (__scriptname__, i, NOM, numEmails)),DEBUG_LOG)
+            xbmc.log(("[%s] : Affiche 236 : %s" % (__scriptname__, msg)),DEBUG_LOG)
             numEmails = 0
             if NxMsgTot > 0:
                 locstr = Addon.getLocalizedString(id=611)  # New(s) message(s)

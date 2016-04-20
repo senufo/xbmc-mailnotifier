@@ -45,4 +45,6 @@ scritp.mail
 - Update comments and debug messages. Fix wrong indent
 0.2.3
 - Display msg even if the nb msg = zero
-
+0.2.8
+- replace debug msg fonction by xbmc.log
+- test with isengard and jarvis kodi versions

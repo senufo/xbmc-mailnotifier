@@ -1,3 +1,4 @@
+.gitignore
 .eric6project/
 _eric6project/
 .eric5project/
@@ -17,3 +18,7 @@ cur/
 tmp/
 __pycache__/
 *.DS_Store
+__init__.py
+notifier.e4p
+*.zip
+

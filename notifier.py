@@ -27,16 +27,6 @@ if 'true' in DEBUG_LOG: DEBUG_LOG = 1 #loglevel == 1 (DEBUG, shows all)
 else: DEBUG_LOG = -1 #(NONE, nothing at all is logged)
 #DEBUG_LOG = True
 
-# sys.path.append (__resource__)
-# Function Debug
-
-
-def debug(msg):
-    """
-    print message if DEBUG_LOG == True.
-    """
-    if DEBUG_LOG == True: print " [%s] : %s " % (__scriptname__, msg)
-
 # ID HOME window
 WINDOW_HOME = 10000
 

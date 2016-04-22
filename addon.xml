@@ -42,7 +42,7 @@
 [CR]
       If you check SKIN to True the messages  will be displayed only if the skin Home.xml file defined in the property such as:[CR]
 [CR]
-      "label $ INFO [Window.property (notifier.nameX)]: $ INFO [Window.property (notifier.msgX)]  label"[CR]
+      "label $INFO [Window.property (notifier.nameX)]: $ INFO [Window.property (notifier.msgX)]  label"[CR]
 [CR]
       Where X is the number of the server defined in the plugin options[CR]
 [CR]

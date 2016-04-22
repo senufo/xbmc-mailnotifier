@@ -34,5 +34,6 @@
     <string id="30127">Taille max du message</string>
     <string id="30128">Filtre de recherche des messages IMAP</string>
     <string id="30129">Debug</string>
+    <string id="30130">Multilignes (Affichage des messages en multilignes)</string>
 
 </strings>

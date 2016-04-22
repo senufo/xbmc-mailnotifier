@@ -47,6 +47,11 @@ color = Addon.getSetting('color')
 ALT = Addon.getSetting('alt')
 # Display in the skin
 SKIN = Addon.getSetting('skin')
+# Display on multilines
+if (Addon.getSetting('multilines').lower == 'true'):
+    SEP = "\n"
+else:
+    SEP = '| '
 # Control ID in window Home.xml
 MsgBox = None
 MsgBoxId = None
@@ -224,7 +229,8 @@ while (not xbmc.abortRequested):
                 # elif (ALT.lower() == 'false'):
                 # else get resuls of all servers
             else:
-                msg = msg + "%s : %d " % (NOM, numEmails) + "\n"
+                #msg = msg + "%s : %d " % (NOM, numEmails) + "\n"
+                msg = msg + "| %s : %d " % (NOM, numEmails) + SEP
                 # Property for display directly in the skin with Home.xml
                 # homeWin.setProperty( "server" , ("%s" % SERVER ))
             homeWin.setProperty(("notifier.name%i" % i), ("%s" % NOM))

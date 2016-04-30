@@ -77,7 +77,7 @@ if __name__ == '__main__':
     # Wait before get mails
     #intervalle = int(float(Addon.getSetting('time')) * 60.0)
         if start_time and (time.time() - start_time) < intervalle:
-            time.sleep(.5)
+            monitor.waitForAbort(.5)
             SHOW_UPDATE     = Addon.getSetting('show_update') == "true"
             # if control exist
             if MsgBox:
@@ -268,4 +268,4 @@ if __name__ == '__main__':
 
         # init start time
         start_time = time.time()
-        time.sleep(.5)
+        monitor.waitForAbort(.5)

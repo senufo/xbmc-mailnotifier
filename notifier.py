@@ -19,8 +19,6 @@ version    = Addon.getAddonInfo('version')
 language   = Addon.getLocalizedString
 
 profile    = xbmc.translatePath(Addon.getAddonInfo('profile'))
-# __resource__   = xbmc.translatePath(os.path.join(cwd, 'resources',
-#                                                 'lib'))
 
 DEBUG_LOG = Addon.getSetting('debug')
 if 'true' in DEBUG_LOG: DEBUG_LOG = 1 #loglevel == 1 (DEBUG, shows all)
@@ -70,12 +68,7 @@ if __name__ == '__main__':
         if monitor.waitForAbort(intervalle):
             # Abort was requested while waiting. We should exit
             break
-#        xbmc.log("hello addon! %s" % time.time(), level=xbmc.LOGDEBUG)
 
-# Verify if kodi work
-#while (not xbmc.abortRequested):
-    # Wait before get mails
-    #intervalle = int(float(Addon.getSetting('time')) * 60.0)
         if start_time and (time.time() - start_time) < intervalle:
             monitor.waitForAbort(.5)
             SHOW_UPDATE     = Addon.getSetting('show_update') == "true"
@@ -174,7 +167,6 @@ if __name__ == '__main__':
             TYPE     = Addon.getSetting('type%i'   % i)
             FOLDER   = Addon.getSetting('folder%i' % i)
 
-            #debug("SERVER = %s, PORT = %s, USER = %s, password = %s, SSL = %s" % (SERVER, PORT, USER, PASSWORD, SSL))
             xbmc.log(("[%s] : SERVER = %s, PORT = %s, USER = %s, password = %s, SSL = %s" % (scriptname, SERVER, PORT, USER, PASSWORD, SSL)), DEBUG_LOG)
     # Total new messages
             NxMsgTot = 0
@@ -208,18 +200,13 @@ if __name__ == '__main__':
                         numEmails = len(imap.search(None, 'UnSeen')[1][0].split())
                         xbmc.log(("[%s] : IMAP numEmails = %d " % (scriptname,numEmails)),DEBUG_LOG)
 
-                    # debug( :numEmails = %d " % numEmails
                     locstr = Addon.getLocalizedString(610)  # message(s)
-                    # msg = msg + "%s : %d %s" % (NOM,numEmails, locstr) + "\n"
-                    # numEmails = 0
                 except:
                     locstr = Addon.getLocalizedString(613)  # Connexion Error
                     if Addon.getSetting('erreur') == "true":
                         xbmc.executebuiltin("XBMC.Notification(%s : ,%s,30)" % (locstr, SERVER))
                     xbmc.log(("[%s] : Erreur de connection : %s" % (scriptname, SERVER)),DEBUG_LOG)
     # Display Msg on the HOME
-                #msg = msg + "%s => %s\n" % (NOM, locstr)
-
                 if numEmails > 0:
                     MsgTot = True  # New Messages present
                 # Look if new messages in NbMsg
@@ -248,8 +235,6 @@ if __name__ == '__main__':
                     # homeWin.setProperty( "server" , ("%s" % SERVER ))
                 homeWin.setProperty(("notifier.name%i" % i), ("%s" % NOM))
                 homeWin.setProperty(("notifier.msg%i" % i), ("%i" % numEmails))
-                    # debug( "name = %s %i" % (NOM, i))
-                    # debug( "numEmails = %i, Server : %i" % (numEmails, i))
                 xbmc.log(("[%s] : 235 notifier.msg%i, Server : %s, numEmails : %i" % (scriptname, i, NOM, numEmails)),DEBUG_LOG)
                 xbmc.log(("[%s] : Affiche 236 : %s" % (scriptname, msg)),DEBUG_LOG)
                 numEmails = 0

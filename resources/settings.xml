@@ -2,7 +2,7 @@
 <settings>
     <category>
         <!--<setting id="time" type="text" label="30107" default="60" />-->
-       <setting id="time" type="slider" label="30107" range="1,1,60" option="int" default="1" />
+       <setting id="time" type="slider" label="30107" range="1,1,60" option="int" default="15" />
        <setting id="popup" type="bool" label="30114" default="True" />
        <setting id="erreur" type="bool" label="30115" default="True" />
        <setting id="show_update" type="bool" label="30117" default="True" />
